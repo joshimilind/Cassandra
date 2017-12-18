@@ -1,15 +1,19 @@
 package pkg.cassandra
 
 import akka.actor._
-import com.datastax.driver.core.Session
-case class ExecuteQuery(query: String) {}
+import com.datastax.driver.core._
+
 //class ExecuteActor(session: Session) extends Actor {
-class ExecuteActor(query: String,session:Session) extends Actor {
+case class submitQuery(query: String) {}
+class ExecuteActor(session: Session, query: String) extends Actor {
 
   def receive = {
-    case ExecuteQuery(query) => {
+    case submitQuery(query) => {
+
       session.execute(query)
 
     }
+
   }
+
 }
